@@ -64,11 +64,8 @@ class City
 
     public function printForecast() : string
     {
-        $prefixes = [' | ', ' - '];
-        $forecastLine = array_map(function(Forecast $forecast) use (&$prefixes) {
-            return array_shift($prefixes).$forecast->weatherConditions();
-        }, $this->forecasts);
+        $forecasts = array_map(function(Forecast $forecast) { return $forecast->weatherConditions(); }, $this->forecasts);
 
-        return sprintf('%s%s', $this->name, implode('', $forecastLine));
+        return sprintf('%s | %s', $this->name, implode(' - ', $forecasts));
     }
 }
